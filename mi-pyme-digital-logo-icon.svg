@@ -1,0 +1,21 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- background -->
+  <rect width="200" height="200" rx="44" fill="#15182B"/>
+
+  <!-- awning band -->
+  <rect x="40" y="46" width="120" height="20" rx="4" fill="#FFB23E"/>
+  <!-- scalloped valance -->
+  <circle cx="52" cy="66" r="12" fill="#FF5A4E"/>
+  <circle cx="76" cy="66" r="12" fill="#FFB23E"/>
+  <circle cx="100" cy="66" r="12" fill="#FF5A4E"/>
+  <circle cx="124" cy="66" r="12" fill="#FFB23E"/>
+  <circle cx="148" cy="66" r="12" fill="#FF5A4E"/>
+
+  <!-- growth line -->
+  <path d="M52 148 L88 112 L116 132 L150 88"
+        fill="none" stroke="#2BBF8A" stroke-width="11"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M130 88 L150 88 L150 106"
+        fill="none" stroke="#2BBF8A" stroke-width="11"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

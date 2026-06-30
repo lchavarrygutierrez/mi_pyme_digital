@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='44' fill='%2315182B'/%3E%3Crect x='40' y='46' width='120' height='20' rx='4' fill='%23FFB23E'/%3E%3Ccircle cx='52' cy='66' r='12' fill='%23FF5A4E'/%3E%3Ccircle cx='76' cy='66' r='12' fill='%23FFB23E'/%3E%3Ccircle cx='100' cy='66' r='12' fill='%23FF5A4E'/%3E%3Ccircle cx='124' cy='66' r='12' fill='%23FFB23E'/%3E%3Ccircle cx='148' cy='66' r='12' fill='%23FF5A4E'/%3E%3Cpath d='M52 148 L88 112 L116 132 L150 88' fill='none' stroke='%232BBF8A' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M130 88 L150 88 L150 106' fill='none' stroke='%232BBF8A' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>Mi Pyme Digital — Leonardo Chavarry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15182B;
+    --ink-soft:#23274A;
+    --paper:#F7F4ED;
+    --paper-dim:#ECE7DA;
+    --marigold:#FFB23E;
+    --coral:#FF5A4E;
+    --mint:#2BBF8A;
+    --text-on-ink:#F7F4ED;
+    --text-on-paper:#1B1E2E;
+    --text-muted:#5B5F78;
+    --radius:14px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    background:var(--paper);
+    color:var(--text-on-paper);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  /* language toggle logic */
+  body.lang-en .es{display:none;}
+  body.lang-es .en{display:none;}
+
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  section{padding:96px 6vw;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+  h1,h2,h3{font-family:var(--display); line-height:1.05; letter-spacing:-.01em;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono);
+    font-size:.85rem;
+    font-weight:600;
+    letter-spacing:.02em;
+    padding:14px 26px;
+    border-radius:999px;
+    border:2px solid var(--ink);
+    cursor:pointer;
+    transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn-solid{background:var(--ink); color:var(--paper);}
+  .btn-solid:hover{transform:translateY(-2px); background:var(--coral); border-color:var(--coral); color:var(--ink);}
+  .btn-outline{background:transparent; color:var(--ink);}
+  .btn-outline:hover{transform:translateY(-2px); background:var(--ink); color:var(--paper);}
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 6vw;
+    background:rgba(247,244,237,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(21,24,43,.08);
+  }
+  .logo{font-family:var(--display); font-weight:700; font-size:1.15rem; display:flex; align-items:center; gap:10px;}
+  .logo-mark{
+    border-radius:8px;
+    flex-shrink:0;
+  }
+  nav.links{display:flex; gap:34px; font-size:.92rem; font-weight:500;}
+  nav.links a{position:relative; padding-bottom:3px;}
+  nav.links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:2px;
+    background:var(--coral); transition:width .2s ease;
+  }
+  nav.links a:hover::after{width:100%;}
+  .nav-right{display:flex; align-items:center; gap:18px;}
+  #lang-toggle{
+    font-family:var(--mono); font-size:.78rem; font-weight:600;
+    border:1.5px solid var(--ink); border-radius:999px;
+    padding:7px 12px; background:transparent; cursor:pointer;
+    letter-spacing:.04em;
+  }
+  #lang-toggle:hover{background:var(--ink); color:var(--paper);}
+  .nav-cta{display:none;}
+  @media(min-width:860px){.nav-cta{display:inline-flex;}}
+  .menu-btn{display:none; font-family:var(--mono); border:1.5px solid var(--ink); border-radius:8px; padding:8px 10px; background:none; cursor:pointer;}
+  @media(max-width:860px){
+    nav.links{display:none;}
+    .menu-btn{display:inline-flex;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:var(--ink); color:var(--text-on-ink);
+    padding-top:80px; padding-bottom:0;
+    position:relative;
+  }
+  .hero-inner{max-width:920px;}
+  .hero .eyebrow{color:var(--marigold);}
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.4rem);
+    margin:18px 0 24px;
+  }
+  .hero h1 .accent{color:var(--coral);}
+  .hero p.lead{
+    font-size:1.15rem; color:#C9CCE2; max-width:620px; margin-bottom:36px;
+  }
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:64px;}
+  .hero .btn-outline{border-color:var(--paper); color:var(--paper);}
+  .hero .btn-outline:hover{background:var(--paper); color:var(--ink);}
+  .hero .btn-solid{background:var(--marigold); border-color:var(--marigold); color:var(--ink);}
+  .hero .btn-solid:hover{background:var(--coral); border-color:var(--coral); color:var(--ink);}
+
+  /* marquee ticker — signature element: storefront awning strip */
+  .ticker-wrap{
+    display:flex; overflow:hidden;
+    border-top:2px solid var(--ink-soft);
+    background:repeating-linear-gradient(
+      135deg,
+      var(--marigold) 0 26px,
+      var(--coral) 26px 52px
+    );
+  }
+  .ticker{
+    display:flex; white-space:nowrap;
+    animation:scroll 28s linear infinite;
+    padding:14px 0;
+  }
+  @media (prefers-reduced-motion: reduce){ .ticker{animation:none;} }
+  .ticker span{
+    font-family:var(--mono); font-weight:700; font-size:.85rem;
+    color:var(--ink); letter-spacing:.05em;
+    padding:0 22px; border-right:2px solid rgba(21,24,43,.35);
+  }
+  @keyframes scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+
+  /* ===== ABOUT / STATS ===== */
+  .about{display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:start;}
+  @media(max-width:860px){.about{grid-template-columns:1fr;}}
+  .about .eyebrow{color:var(--coral);}
+  .about h2{font-size:clamp(1.8rem,3.4vw,2.6rem); margin:14px 0 20px;}
+  .about p{color:var(--text-muted); font-size:1.02rem; margin-bottom:16px; max-width:54ch;}
+  .stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .stat-card{
+    background:var(--ink); color:var(--paper);
+    border-radius:var(--radius); padding:26px 22px;
+  }
+  .stat-card:nth-child(2){background:var(--mint); color:var(--ink);}
+  .stat-card:nth-child(3){background:var(--coral); color:var(--ink);}
+  .stat-card:nth-child(4){background:var(--marigold); color:var(--ink);}
+  .stat-num{font-family:var(--display); font-weight:700; font-size:2.1rem;}
+  .stat-label{font-family:var(--mono); font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; margin-top:6px; opacity:.85;}
+
+  /* ===== APPROACH ===== */
+  .approach{background:var(--paper-dim);}
+  .approach .eyebrow{color:var(--mint);}
+  .approach h2{font-size:clamp(1.8rem,3.4vw,2.6rem); margin:14px 0 44px; max-width:18ch;}
+  .pillar-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media(max-width:980px){.pillar-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.pillar-grid{grid-template-columns:1fr;}}
+  .pillar{
+    background:var(--paper); border:1.5px solid rgba(21,24,43,.1);
+    border-radius:var(--radius); padding:24px 20px;
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .pillar:hover{transform:translateY(-4px); border-color:var(--ink);}
+  .pillar-tag{
+    display:inline-block; font-family:var(--mono); font-size:.72rem; font-weight:700;
+    background:var(--ink); color:var(--paper); border-radius:6px; padding:3px 8px; margin-bottom:14px;
+  }
+  .pillar h3{font-size:1.08rem; margin-bottom:8px;}
+  .pillar p{color:var(--text-muted); font-size:.92rem;}
+
+  /* ===== PROJECTS / CASE STUDIES ===== */
+  .projects .eyebrow{color:var(--coral);}
+  .projects h2{font-size:clamp(1.8rem,3.4vw,2.6rem); margin:14px 0 10px; max-width:22ch;}
+  .projects .note{
+    font-family:var(--mono); font-size:.82rem; color:var(--text-muted);
+    border-left:3px solid var(--marigold); padding-left:14px; max-width:60ch; margin:18px 0 48px;
+  }
+  .case-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  @media(max-width:860px){.case-grid{grid-template-columns:1fr;}}
+  .case-card{
+    background:var(--ink); color:var(--text-on-ink);
+    border-radius:var(--radius); padding:30px 28px;
+    position:relative; overflow:hidden;
+  }
+  .case-card::before{
+    content:""; position:absolute; top:0; right:0; width:70px; height:70px;
+    background:var(--accent, var(--coral)); border-radius:0 0 0 70px; opacity:.9;
+  }
+  .case-card:nth-child(1){--accent:var(--coral);}
+  .case-card:nth-child(2){--accent:var(--marigold);}
+  .case-card:nth-child(3){--accent:var(--mint);}
+  .case-card:nth-child(4){--accent:#9C8CFF;}
+  .case-type{font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--marigold); margin-bottom:10px;}
+  .case-card h3{font-size:1.25rem; margin-bottom:14px; max-width:85%;}
+  .case-block{margin-bottom:14px;}
+  .case-block .label{font-family:var(--mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:#9296B8; margin-bottom:4px;}
+  .case-block p{font-size:.92rem; color:#D7D9E8;}
+  .case-tools{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;}
+  .case-tools span{
+    font-family:var(--mono); font-size:.7rem; background:rgba(247,244,237,.1);
+    border:1px solid rgba(247,244,237,.25); border-radius:999px; padding:3px 10px;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact{
+    background:var(--ink); color:var(--paper); text-align:left;
+    position:relative;
+  }
+  .contact h2{font-size:clamp(2rem,4.6vw,3.2rem); max-width:16ch; margin-bottom:20px;}
+  .contact p{color:#C9CCE2; max-width:54ch; margin-bottom:32px; font-size:1.05rem;}
+  .contact .btn-solid{background:var(--marigold); color:var(--ink); border-color:var(--marigold);}
+  .contact .btn-solid:hover{background:var(--coral); border-color:var(--coral);}
+  .contact .btn-outline{border-color:var(--paper); color:var(--paper);}
+  .contact .btn-outline:hover{background:var(--paper); color:var(--ink);}
+
+  footer{
+    background:var(--ink); color:#8A8DAA; text-align:center;
+    padding:24px 6vw 36px; font-family:var(--mono); font-size:.78rem;
+    border-top:1px solid rgba(247,244,237,.1);
+  }
+</style>
+</head>
+<body class="lang-en">
+
+<header>
+  <div class="logo">
+    <svg class="logo-mark" width="30" height="30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" rx="44" fill="#15182B"/>
+      <rect x="40" y="46" width="120" height="20" rx="4" fill="#FFB23E"/>
+      <circle cx="52" cy="66" r="12" fill="#FF5A4E"/>
+      <circle cx="76" cy="66" r="12" fill="#FFB23E"/>
+      <circle cx="100" cy="66" r="12" fill="#FF5A4E"/>
+      <circle cx="124" cy="66" r="12" fill="#FFB23E"/>
+      <circle cx="148" cy="66" r="12" fill="#FF5A4E"/>
+      <path d="M52 148 L88 112 L116 132 L150 88" fill="none" stroke="#2BBF8A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M130 88 L150 88 L150 106" fill="none" stroke="#2BBF8A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Mi Pyme Digital
+  </div>
+  <nav class="links">
+    <a href="#about"><span class="en">About</span><span class="es">Sobre mí</span></a>
+    <a href="#approach"><span class="en">Approach</span><span class="es">Enfoque</span></a>
+    <a href="#projects"><span class="en">Projects</span><span class="es">Proyectos</span></a>
+    <a href="#contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
+  </nav>
+  <div class="nav-right">
+    <button id="lang-toggle" onclick="toggleLang()">ES</button>
+    <a class="btn btn-solid nav-cta" href="#contact"><span class="en">Get in touch</span><span class="es">Contactar</span></a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">
+      <span class="en">Nonprofit digital consulting initiative</span>
+      <span class="es">Iniciativa de consultoría digital sin fines de lucro</span>
+    </p>
+    <h1>
+      <span class="en">Helping small businesses go digital, <span class="accent">one shop at a time.</span></span>
+      <span class="es">Ayudando a las pymes a digitalizarse, <span class="accent">un negocio a la vez.</span></span>
+    </h1>
+    <p class="lead">
+      <span class="en">Mi Pyme Digital is a volunteer-driven initiative founded by Leonardo Chavarry to help small and medium-sized businesses — primarily in Latin America — build a digital presence and adopt practical tools in the years since COVID-19.</span>
+      <span class="es">Mi Pyme Digital es una iniciativa voluntaria fundada por Leonardo Chavarry para ayudar a pequeñas y medianas empresas — principalmente en América Latina — a construir presencia digital y adoptar herramientas prácticas tras la pandemia.</span>
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-solid" href="https://www.facebook.com/MiPYMEDigital369" target="_blank" rel="noopener"><span class="en">See project examples</span><span class="es">Ver ejemplos de proyectos</span></a>
+      <a class="btn btn-outline" href="#contact"><span class="en">Get in touch</span><span class="es">Contactar</span></a>
+    </div>
+  </div>
+  <div class="ticker-wrap">
+    <div class="ticker" id="ticker">
+      <!-- duplicated content for seamless loop, filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div>
+    <p class="eyebrow"><span class="en">About the founder</span><span class="es">Sobre el fundador</span></p>
+    <h2><span class="en">Built by someone who codes the tools and sits down with the owners.</span><span class="es">Creado por alguien que programa las herramientas y se sienta con los dueños.</span></h2>
+    <p>
+      <span class="en">Leonardo Chavarry is a recent graduate of Colgate University (Computer Science &amp; Economics). He founded Mi Pyme Digital to bridge a gap he kept seeing after COVID-19: small business owners with real customers and real momentum, but no digital infrastructure to support either.</span>
+      <span class="es">Leonardo Chavarry es egresado reciente de Colgate University (Ciencias de la Computación y Economía). Fundó Mi Pyme Digital para cerrar una brecha que veía constantemente tras la pandemia: dueños de pequeños negocios con clientes reales y buen impulso, pero sin infraestructura digital que los respaldara.</span>
+    </p>
+    <p>
+      <span class="en">The work is hands-on and client-facing by design — sitting down with owners, understanding how they actually operate, and building something they can keep using after the engagement ends.</span>
+      <span class="es">El trabajo es práctico y directo con cada dueño por diseño — sentarse con ellos, entender cómo operan realmente, y construir algo que puedan seguir usando después de terminado el proyecto.</span>
+    </p>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num">200+</div>
+      <div class="stat-label"><span class="en">SMEs supported</span><span class="es">Pymes apoyadas</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">2020–</div>
+      <div class="stat-label"><span class="en">Active since post-COVID recovery</span><span class="es">Activa desde la recuperación post-COVID</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">LatAm</div>
+      <div class="stat-label"><span class="en">Primary region served</span><span class="es">Región principal atendida</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1:1</div>
+      <div class="stat-label"><span class="en">Direct owner consulting</span><span class="es">Consultoría directa con dueños</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== APPROACH ===== -->
+<section class="approach" id="approach">
+  <p class="eyebrow"><span class="en">What I help with</span><span class="es">En qué ayudo</span></p>
+  <h2><span class="en">Four areas, one goal: a digital presence the owner can actually run.</span><span class="es">Cuatro áreas, un objetivo: una presencia digital que el dueño realmente pueda manejar.</span></h2>
+  <div class="pillar-grid">
+    <div class="pillar">
+      <span class="pillar-tag">STRATEGY</span>
+      <h3><span class="en">Digital strategy</span><span class="es">Estrategia digital</span></h3>
+      <p><span class="en">Defining what "going digital" should actually mean for this specific business — not a generic checklist.</span><span class="es">Definir qué significa realmente "digitalizarse" para ese negocio en particular — no una lista genérica.</span></p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-tag">PRESENCE</span>
+      <h3><span class="en">Websites &amp; landing pages</span><span class="es">Sitios web y landing pages</span></h3>
+      <p><span class="en">Basic, functional web presence — built to be findable and easy for the owner to update.</span><span class="es">Presencia web básica y funcional — fácil de encontrar y de actualizar por el dueño.</span></p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-tag">COMMS</span>
+      <h3><span class="en">Social &amp; customer comms</span><span class="es">Redes y comunicación con clientes</span></h3>
+      <p><span class="en">Structured business accounts and WhatsApp workflows so messages stop getting lost.</span><span class="es">Cuentas de negocio organizadas y flujos de WhatsApp para que los mensajes dejen de perderse.</span></p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-tag">OPERATIONS</span>
+      <h3><span class="en">Light automation</span><span class="es">Automatización básica</span></h3>
+      <p><span class="en">Replacing notebooks and memory with simple, sustainable digital tracking.</span><span class="es">Reemplazar cuadernos y memoria por seguimiento digital simple y sostenible.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="projects" id="projects">
+  <p class="eyebrow"><span class="en">Project examples</span><span class="es">Ejemplos de proyectos</span></p>
+  <h2><span class="en">Examples of SME digital projects through Mi Pyme Digital</span><span class="es">Ejemplos de proyectos de digitalización de pymes</span></h2>
+  <p class="note">
+    <span class="en">These are representative composites drawn from recurring patterns across the SME portfolio. Client names and screenshots are omitted to protect the privacy of small business owners — these illustrate the type of work completed, not a list of live sites.</span>
+    <span class="es">Estos son ejemplos representativos basados en patrones recurrentes del trabajo realizado con pymes. Se omiten nombres de clientes y capturas de pantalla para proteger su privacidad — ilustran el tipo de trabajo realizado, no una lista de sitios en línea.</span>
+  </p>
+  <div class="case-grid">
+
+    <div class="case-card">
+      <div class="case-type"><span class="en">Local retail business</span><span class="es">Comercio local</span></div>
+      <h3><span class="en">Building a basic online presence</span><span class="es">Construyendo una presencia en línea básica</span></h3>
+      <div class="case-block">
+        <div class="label"><span class="en">Challenge</span><span class="es">Reto</span></div>
+        <p><span class="en">No online presence beyond word-of-mouth; losing visibility to competitors appearing in local search and Instagram.</span><span class="es">Sin presencia en línea más allá del boca a boca; perdía visibilidad frente a competidores en búsquedas locales e Instagram.</span></p>
+      </div>
+      <div class="case-block">
+        <div class="label"><span class="en">What I helped build</span><span class="es">Qué ayudé a construir</span></div>
+        <p><span class="en">A simple landing page and a structured Google Business / Instagram profile with consistent branding and local SEO basics.</span><span class="es">Una landing page simple y un perfil estructurado en Google Business / Instagram con marca consistente y SEO local básico.</span></p>
+      </div>
+      <div class="case-block">
+        <div class="label"><span class="en">Impact</span><span class="es">Impacto</span></div>
+        <p><span class="en">Went from zero searchable footprint to a findable, functioning digital storefront.</span><span class="es">Pasó de no ser encontrable en línea a tener una vitrina digital funcional y localizable.</span></p>
+      </div>
+      <div class="case-tools">
+        <span>No-code builder</span><span>Google Business</span><span>Meta Business Suite</span><span>SEO básico</span>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-type"><span class="en">Restaurant / food business</span><span class="es">Restaurante / negocio de comida</span></div>
+      <h3><span class="en">Digital ordering &amp; social presence</span><span class="es">Pedidos digitales y presencia en redes</span></h3>
+      <div class="case-block">
+        <div class="label"><span class="en">Challenge</span><span class="es">Reto</span></div>
+        <p><span class="en">Orders taken entirely by phone or in person, with no remote ordering or repeat-customer channel.</span><span class="es">Pedidos solo por teléfono o en persona, sin canal remoto ni forma de fidelizar clientes.</span></p>
+      </div>
+      <div class="case-block">
+        <div class="label"><span class="en">What I helped build</span><span class="es">Qué ayudé a construir</span></div>
+        <p><span class="en">A simple ordering workflow via WhatsApp Business catalog, plus a consistent social posting structure for the menu and promotions.</span><span class="es">Un flujo de pedidos simple vía catálogo de WhatsApp Business, y una estructura de publicaciones consistente para menú y promociones.</span></p>
+      </div>
+      <div class="case-block">
+        <div class="label"><span class="en">Impact</span><span class="es">Impacto</span></div>
+        <p><span class="en">Orders outside walk-in hours, and a repeatable way to reach existing customers online.</span><span class="es">Pedidos fuera del horario presencial y una forma repetible de llegar a clientes existentes en línea.</span></p>
+      </div>
+      <div class="case-tools">
+        <span>WhatsApp Business</span><span>Meta Business Suite</span><span>Catálogo digital</span>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-type"><span class="en">Service-based SME</span><span class="es">Pyme de servicios</span></div>
+      <h3><span class="en">Improving customer communication</span><span class="es">Mejorando la comunicación con clientes</span></h3>
+      <div class="case-block">
+        <div class="label"><span class="en">Challenge</span><span class="es">Reto</span></div>
+        <p><span class="en">Inquiries scattered across a personal phone and inconsistent social replies; messages were missed.</span><span class="es">Consultas dispersas entre un teléfono personal y respuestas inconsistentes en redes; se perdían mensajes.</span></p>
+      </div>
+      <div class="case-block">
+        <div class="label"><span class="en">What I helped build</span><span class="es">Qué ayudé a construir</span></div>
+        <p><span class="en">WhatsApp Business with labels, quick replies, and a basic FAQ structure, plus a unified, organized inbox.</span><span class="es">WhatsApp Business con etiquetas, respuestas rápidas y una estructura básica de preguntas frecuentes, además de una bandeja unificada.</span></p>
+      </div>
+      <div class="case-block">
+        <div class="label"><span class="en">Impact</span><span class="es">Impacto</span></div>
+        <p><span class="en">Fewer missed messages and a more consistent, professional client experience.</span><span class="es">Menos mensajes perdidos y una experiencia más consistente y profesional para el cliente.</span></p>
+      </div>
+      <div class="case-tools">
+        <span>WhatsApp Business</span><span>Bandeja unificada</span><span>Procesos de respuesta</span>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-type"><span class="en">Small business operations</span><span class="es">Operaciones de un pequeño negocio</span></div>
+      <h3><span class="en">From informal to organized workflow</span><span class="es">De lo informal a un flujo organizado</span></h3>
+      <div class="case-block">
+        <div class="label"><span class="en">Challenge</span><span class="es">Reto</span></div>
+        <p><span class="en">Inventory, sales, and customer info tracked by memory or scattered notes, making planning hard.</span><span class="es">Inventario, ventas e información de clientes registrados de memoria o en notas dispersas, dificultando la planeación.</span></p>
+      </div>
+      <div class="case-block">
+        <div class="label"><span class="en">What I helped build</span><span class="es">Qué ayudé a construir</span></div>
+        <p><span class="en">A centralized spreadsheet system for inventory and sales, with light automation for repetitive tracking.</span><span class="es">Un sistema centralizado en hoja de cálculo para inventario y ventas, con automatización ligera para tareas repetitivas.</span></p>
+      </div>
+      <div class="case-block">
+        <div class="label"><span class="en">Impact</span><span class="es">Impacto</span></div>
+        <p><span class="en">A clearer view of the business and less time spent on manual tracking.</span><span class="es">Una visión más clara del negocio y menos tiempo dedicado al registro manual.</span></p>
+      </div>
+      <div class="case-tools">
+        <span>Google Sheets</span><span>Fórmulas / automatización</span><span>Diseño de procesos</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <h2><span class="en">Have a small business that needs this?</span><span class="es">¿Tienes un negocio que necesita esto?</span></h2>
+  <p>
+    <span class="en">Mi Pyme Digital takes on a limited number of SMEs at a time to keep the work hands-on. Reach out to talk about your business.</span>
+    <span class="es">Mi Pyme Digital trabaja con un número limitado de pymes a la vez para mantener un trabajo cercano. Escríbeme para hablar de tu negocio.</span>
+  </p>
+  <div class="hero-ctas">
+    <a class="btn btn-solid" href="mailto:leochavarry050504@gmail.com"><span class="en">Email me</span><span class="es">Escríbeme</span></a>
+    <a class="btn btn-outline" href="#hero"><span class="en">Back to top</span><span class="es">Volver arriba</span></a>
+  </div>
+</section>
+
+<footer>
+  <span class="en">Mi Pyme Digital — founded by Leonardo Chavarry. Built with care, not a template.</span>
+  <span class="es">Mi Pyme Digital — fundado por Leonardo Chavarry. Hecho con cuidado, no con una plantilla.</span>
+</footer>
+
+<script>
+  function toggleLang(){
+    const body = document.body;
+    const btn = document.getElementById('lang-toggle');
+    if(body.classList.contains('lang-en')){
+      body.classList.remove('lang-en');
+      body.classList.add('lang-es');
+      btn.textContent = 'EN';
+      document.documentElement.lang = 'es';
+    } else {
+      body.classList.remove('lang-es');
+      body.classList.add('lang-en');
+      btn.textContent = 'ES';
+      document.documentElement.lang = 'en';
+    }
+  }
+
+  const tickerWords = [
+    'TIENDAS','RESTAURANTES','TALLERES','SALONES DE BELLEZA',
+    'PANADERÍAS','BOUTIQUES','CONSULTORIOS','FERRETERÍAS',
+    'CAFETERÍAS','MECÁNICOS','LAVANDERÍAS','FLORERÍAS'
+  ];
+  const ticker = document.getElementById('ticker');
+  const loopContent = [...tickerWords, ...tickerWords]
+    .map(w => `<span>${w}</span>`)
+    .join('');
+  ticker.innerHTML = loopContent + loopContent;
+</script>
+
+</body>
+</html>
